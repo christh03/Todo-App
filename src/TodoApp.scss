@@ -1,0 +1,34 @@
+body {
+  width: 100%;
+  overflow: hidden;
+  background-image: radial-gradient(
+    circle at 0% 0%,
+    #f3ddff 0,
+    #cdafee 0%,
+    #c8b5f2 50%,
+    #aca2ec 75%,
+    #8d92e7 100%
+  );
+}
+
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 94%;
+  max-width: 100rem;
+  margin: 0 auto;
+  height: 100vh;
+
+  &-section {
+    width: 31.25rem;
+    max-width: 31.25rem;
+    box-shadow: 12px 12px 15px #48529944;
+    background-color: #eae5e5f2;
+  }
+}
+
+.Main {
+  width: 100%;
+}

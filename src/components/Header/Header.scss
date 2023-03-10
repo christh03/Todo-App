@@ -1,0 +1,13 @@
+.Header {
+  width: 100%;
+  padding: 2em;
+  border: none;
+  background-color: #7286d3;
+
+  &-h1 {
+    font-size: 2rem;
+    outline: none;
+    font-weight: 600;
+    color: white;
+  }
+}

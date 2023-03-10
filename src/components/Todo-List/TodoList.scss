@@ -1,0 +1,15 @@
+.List {
+  background-color: #f2f2f2f2;
+  &-ul {
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 23.25rem;
+  }
+
+  &-li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 2.5em;
+    border-bottom: 1px solid #d8d4d4f2;
+  }
+}
