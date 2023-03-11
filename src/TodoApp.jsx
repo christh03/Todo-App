@@ -1,27 +1,50 @@
 import { useReducer } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { Form } from "./components/Form/Form";
-import { Header } from "./components/Header/Header";
-import { TodoList } from "./components/Todo-List/TodoList";
+import { Form, Header, TodoList } from "./components";
 import "./TodoApp.scss";
 
-const initialState = [
-  {
-    id: uuidv4(),
-    description: "Buy a new CPU",
-    done: false,
-  },
-  {
-    id: uuidv4(),
-    description: "Buy a new Cell",
-    done: false,
-  },
-];
+const initialState = [];
 
 const todoReducer = (initialState, action) => {
   switch (action.type) {
     case "Adding":
       return [...initialState, action.payload];
+
+    case "Remove":
+      return initialState.filter((todos) => todos.id !== action.payload);
+
+    case "Done":
+      return initialState.map((todos) => {
+        if (todos.id === action.payload) {
+          return {
+            ...todos,
+            done: !todos.done,
+          };
+        }
+        return todos;
+      });
+
+    case "Edit":
+      return initialState.map((todos) => {
+        if (todos.id === action.payload.id) {
+          return {
+            ...todos,
+            description: action.payload.description,
+            edited: !action.payload.edited,
+          };
+        }
+        return todos;
+      });
+
+    case "EditToggle":
+      return initialState.map((todos) => {
+        if (todos.id === action.payload) {
+          return {
+            ...todos,
+            edited: !todos.edited,
+          };
+        }
+        return todos;
+      });
 
     default:
       return initialState;
@@ -38,13 +61,48 @@ export const TodoApp = () => {
     });
   };
 
+  const handleRemoveTodo = (id) => {
+    dispatch({
+      type: "Remove",
+      payload: id,
+    });
+  };
+
+  const handleDoneTodo = (id) => {
+    dispatch({
+      type: "Done",
+      payload: id,
+    });
+  };
+
+  const handleEditTodo = (todo) => {
+    dispatch({
+      type: "Edit",
+      payload: todo,
+    });
+  };
+
+  const handleEditToggle = (id) => {
+    console.log(id);
+    dispatch({
+      type: "EditToggle",
+      payload: id,
+    });
+  };
+
   return (
     <div className="Container">
       <section className="Container-section">
         <Header />
         <main className="Main">
           <Form onAddTodo={handleAddTodo} />
-          <TodoList todos={todos} />
+          <TodoList
+            todos={todos}
+            onRemoveTodo={handleRemoveTodo}
+            onDoneTodo={handleDoneTodo}
+            onEditTodo={handleEditTodo}
+            onEditToggle={handleEditToggle}
+          />
         </main>
       </section>
     </div>

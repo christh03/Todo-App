@@ -1,26 +1,8 @@
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useForm } from "../../Hooks/useForm";
 import "./Form.scss";
 
 export const Form = ({ onAddTodo }) => {
-  const [description, setDescription] = useState("");
-
-  const onInputChange = ({ target }) => {
-    setDescription(target.value);
-  };
-
-  const onFormSubmit = (event) => {
-    event.preventDefault();
-    if (description.length <= 1) return;
-
-    const newTodo = {
-      id: uuidv4(),
-      description,
-      done: false,
-    };
-    onAddTodo(newTodo);
-    setDescription("");
-  };
+  const { description, onFormSubmit, onInputChange } = useForm(onAddTodo);
 
   return (
     <form onSubmit={onFormSubmit} className="Form">
